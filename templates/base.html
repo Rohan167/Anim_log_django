@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    {% include 'snippets/css.html' %}
+    <title>{% block head_title %}My_site.com{% endblock head_title %}</title>
+  </head>
+      <body>
+        {% include 'snippets/nav.html' %}
+      <div class="container">
+        {% block content %}
+            <!-- Hello There!, I am extended data in the default block. -->
+        {% endblock content %}
+        <!-- {% block content_2 %}
+          Sepearte Block content
+        {% endblock content_2 %} -->
+
+      </div>
+      {% include 'snippets/js.html' %}
+      </body>
+</html>

@@ -1,0 +1,8 @@
+{% extends "base.html" %}  <!-- Inheriting a template html file -->
+{% block head_title %}{{block.super}}{% endblock head_title %}
+{% block content %}
+  <div >
+          <h5>BASIC PAGE</h5>
+          <p> This is {{ html_var }} coming through </p>
+    </div>
+{% endblock content %}

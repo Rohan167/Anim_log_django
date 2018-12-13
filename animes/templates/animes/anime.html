@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+<head>
+  {% include 'snippets/css.html' %}
+{% block head_title %}Anime | {{block.super}}{% endblock head_title %}
+</head>
+{% block content %}
+<h4>Anime List</h4>
+<ul>
+  {% for item in object_list %}
+  <li><b>{{item}}</b> <br>{{ item.name }},  {{ item.genre }}  ,{{ item.review }}, {{ item.timestamp }} ,{{ item.updated }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
