@@ -23,6 +23,9 @@ class Item(models.Model):
     def get_contents(self):
         return self.contents.split(",")
 
+    def __str__(self):
+        return self.name
+
     def get_absolute_url(self):
         # return f"/animes/{self.slug}"
         return reverse('episodes:detail', kwargs={'pk': self.pk})

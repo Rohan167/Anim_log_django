@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+<head>
+  {% include 'snippets/css.html' %}
+{% block head_title %}{{user.username}} | {{block.super}}{% endblock head_title %}
+</head>
+{% block content %}
+<h4>{{user.username}}</h4>
+<h5>{{object.name}}</h5>
+</hr>
+
+{% if user.item_set.all.exists %}
+{% for anim in user.anime_set.all %}
+<div class='row'>
+  <div class='col-sm-12'>
+      <div class='card card-default'>
+
+          <h4>{{anim.title}}</h4>
+          <p>{{ anim.genre }} </p>
+          <ul>
+          {% for item in anim.item_set.all %}
+            <li style='margin-bottom: 15px;'><b> {{ item.name }} : </b>
+                {% for epi in item.get_contents %}
+                <span style='padding: 2px 4px; margin-right:4px;'> {{ epi }} </span>
+                {% endfor %}
+           </li>
+          {% endfor %}
+
+        </ul>
+      </div>
+    </div>
+</div> <!--ROW CLOSED-->
+</hr>
+
+{% endfor %}
+
+{% else %}
+<p class='lead'> No Episodes Entered </p>
+
+{% endif %}
+{% endblock %}
