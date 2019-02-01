@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+<head>
+  {% include 'snippets/css.html' %}
+{% block head_title %}Anime | {{block.super}}{% endblock head_title %}
+</head>
+{% block content %}
+<h4>{{ object.title }}</h4>
+<form>
+  <a href='/animes/{{object.slug}}/edit/'>Update</a>
+</form>
+<p>Genre: {{ object.genre }}</p>
+<p>Review: {{ object.review }}</p>
+<p>Time Created: {{ object.timestamp }}, <b>Updated:</b> {{ object.updated }}
+{% endblock %}

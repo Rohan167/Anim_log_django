@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+<head>
+  {% include 'snippets/css.html' %}
+{% block head_title %}Episodes | {{block.super}}{% endblock head_title %}
+</head>
+{% block content %}
+<h4>{{object.anime.name}}</h4>
+<form>
+  <a href='/items/{{object.pk}}/update/'>Update Episode</a>
+</form>
+<h5>{{object.name}}</h5>
+
+{% for item in object.get_contents %}
+{{ item }}
+{% endfor %}
+
+{% endblock %}

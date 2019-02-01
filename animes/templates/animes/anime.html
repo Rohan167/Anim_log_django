@@ -5,9 +5,13 @@
 </head>
 {% block content %}
 <h4>Anime List</h4>
+<form>
+  <a href='/animes/create/'>Add Anime</a>
+</form>
 <ul>
   {% for item in object_list %}
-  <li><b>{{item}}</b> <br>{{ item.name }},  {{ item.genre }}  ,{{ item.review }}, {{ item.timestamp }} ,{{ item.updated }}</li>
+    <li><b><a href="{{ item.get_absolute_url }}">{{item}}</a></b><br>
+      {{ item.name }},  {{ item.genre }}  ,{{ item.review }}, {{ item.timestamp }} ,{{ item.updated }}</li>
   {% endfor %}
 </ul>
 {% endblock %}

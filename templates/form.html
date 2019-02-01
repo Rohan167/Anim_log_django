@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+<head>
+  {% include 'snippets/css.html' %}
+{% block head_title %}{{ title }} | {{block.super}}{% endblock head_title %}
+</head>
+{% block content %}
+<h5>{{ title }}</h5>
+
+{% if form.errors %}
+{% endif %}
+<form method='POST'> {% csrf_token %}
+  {{ form.as_p }}
+  <button type='submit'>Save</button>
+</form>
+{% endblock %}
+
+
+
+<!-- <input type='text', name='name', placeholder='Your Anime Name'><br/>
+<input type='text', name='genre', placeholder='Your Anime genre'><br/>
+<input type='text', name='review', placeholder='Your Anime review'><br/> -->
