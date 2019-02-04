@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.db.models import Q
 from django.db.models.signals import pre_save, post_save
 from django.core.urlresolvers import reverse
 from .utils import unique_slug_generator
@@ -8,6 +9,21 @@ from .validators import validate_name, validate_genres
 # Create your models here.
 
 User = settings.AUTH_USER_MODEL
+
+class animeQuerySet(models.query.QuerySet):
+    def search(self,query):  #anime.objects.all().search(query)
+        return self.filter(
+        Q(name__icontains=query)|
+        Q(genre__icontains=query)|
+        Q(review__icontains=query)
+        )
+
+class animeModelManager(models.Manager):
+    def get_queryset(self):
+        return animeQuerySet(self.model, using=self._db)
+    def search(self, query):  #anime.objects.search()
+        return self.get_queryset().search(query)
+
 class anime(models.Model):
     owner       = models.ForeignKey(User)  #class_instance.model_set.all() #TO SHOW THE ASSOCIATIONS
     name        = models.CharField(max_length=120, validators=[validate_name])
@@ -18,6 +34,7 @@ class anime(models.Model):
     slug        = models.SlugField(null=True,blank=True)
     # my_date     = models.DateField(auto_now=False,auto_now_add=False,null=True)
 
+    objects     = animeModelManager() #add Model.objects.all()
     def __str__(self):   #dunder method
         return self.name
 

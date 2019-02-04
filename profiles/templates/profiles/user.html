@@ -5,17 +5,22 @@
 </head>
 {% block content %}
 <h4>{{user.username}}</h4>
+<form class = 'form' method='GET' action='.'>
+<input type="text" name="q" placeholder="Search..." value='{{ request.GET.q }}'>
+<button class='btn btn-success' type="submit">Search</button>
+</form>
 <h5>{{object.name}}</h5>
 </hr>
 
-{% if user.item_set.all.exists %}
-{% for anim in user.anime_set.all %}
+{% if anime %}
+{% for anim in anime %}
 <div class='row'>
   <div class='col-sm-12'>
       <div class='card card-default'>
 
           <h4>{{anim.title}}</h4>
-          <p>{{ anim.genre }} </p>
+          <p><a href='{{ request.path }}?q={{ anim.genre }}'>{{ anim.genre }}</a></p>
+          <p><a href='{{ request.path }}?q={{ anim.review }}'>{{ anim.review }}</a> </p>
           <ul>
           {% for item in anim.item_set.all %}
             <li style='margin-bottom: 15px;'><b> {{ item.name }} : </b>
