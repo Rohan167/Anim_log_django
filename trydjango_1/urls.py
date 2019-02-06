@@ -23,13 +23,14 @@ from animes.views import (
                             anime_detail_view,
                             anime_createview_class
                         )
-
+from profiles.views import ProfileFollowToggle
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
     url(r'^login/$', LoginView.as_view(), name='login'),
+    url(r'^profile-follow/$', ProfileFollowToggle.as_view(), name='follow'),
     url(r'^profiles/', include('profiles.urls', namespace='profiles')),
     url(r'^animes/', include('animes.urls', namespace='animes')),
     url(r'^items/', include('episodes.urls', namespace='episodes')),
