@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
+from django.core.urlresolvers import reverse
 # Create your models here.
 
 User    = settings.AUTH_USER_MODEL
@@ -29,6 +30,10 @@ class Profile(models.Model):
     objects     = ProfileManager()
     def __str__(self):
         return self.user.username
+
+    def send_activation_email(self):
+        pass
+
 
 
 def post_save_user_receiver(sender, instance, created, *args, **kwargs):

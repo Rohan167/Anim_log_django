@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+</br>
+<h5 style='margin-bottom: 25px;'> My feed </h5>
+{% for item in object_list %}
+<div class='row'>
+  <div class='col-sm-6 col-sm-offset-3'>
+      <div class='card card-default'>
+          <h5>User: <a href="/profiles/{{item.user.username}}" >{{item.user.username}} </a> </h5>
+          <h6>{{item.anime.name}}</h6>
+          <p>{{ item.anime.genre}} </p>
+          <ul>
+            <li style='margin-bottom: 15px;'><b> {{ item.name }} : </b>
+                {% for epi in item.get_contents %}
+                <span style='padding: 2px 4px; margin-right:4px;'> {{ epi }} </span>
+                {% endfor %}
+           </li>
+        </ul>
+      </div>
+    </div>
+</div> <!--ROW CLOSED-->
+{% endfor %}
+{% endblock %}

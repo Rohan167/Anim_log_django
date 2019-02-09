@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+<head>
+  {% include 'snippets/css.html' %}
+{% block head_title %}Add Anime | {{block.super}}{% endblock head_title %}
+</head>
+{% block content %}
+
+<!-- REGISTRATION FORM -->
+<div class='col-sm-6 col-sm-offset-3 text-center'>
+<h4> Register </h4>
+<form method="post" action="{% url 'register' %}">
+{% csrf_token %}
+{{ form.as_p }}
+
+<input type="submit" value="register">
+<input type="hidden" name="next" value="{{ next }}">
+</form>
+<p>Did you already registered then <a href="{% url 'login' %}">Login</a>?
+</div>
+<!-- REGISTRATION FORM CLOSE -->
+
+{% endblock %}
