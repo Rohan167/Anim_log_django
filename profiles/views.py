@@ -12,6 +12,21 @@ from .forms import RegisterForm
 User    = get_user_model()
 
 
+def activate_user_view(request, code=None, *args, **kwargs):
+    if code:
+        qs = Profile.objects.filter(activation_key=code)
+        if qs.exists() and qs.count() == 1:
+            profile = qs.first()
+            if not profile.activated:
+                user_u = profile.user
+                user_u.is_active = True
+                user_u.save()
+                profile.activated = True
+                profile.activation_key = None
+                profile.save()
+                return redirect("/login")
+    # invalid code
+    return redirect("/login")
 
 class RegisterView(CreateView):
     form_class      = RegisterForm
@@ -44,7 +59,7 @@ class ProfileDetail(DetailView):
     template_name   = 'profiles/user.html'
 
     def get_object(self):
-        username        = self.kwargs.get("username")
+        username    = self.kwargs.get("username")
         if username is None:
             raise Http404
         return get_object_or_404(User, username__iexact=username, is_active=True)

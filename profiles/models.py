@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
+from .utils import code_generator
+from django.core.mail import send_mail
 # Create your models here.
 
 User    = settings.AUTH_USER_MODEL
@@ -20,19 +22,32 @@ class ProfileManager(models.Manager):
         return profile_p, is_following
 
 class Profile(models.Model):
-    user        = models.OneToOneField(User)
-    followers   = models.ManyToManyField(User, related_name='is_following', blank=True)
+    user            = models.OneToOneField(User)
+    followers       = models.ManyToManyField(User, related_name='is_following', blank=True)
     # following   = models.ManyToManyField(User, related_name='following', blank=True)
-    activated   = models.BooleanField(default=False)
-    timestamp   = models.DateTimeField(auto_now_add=True)
-    updated     = models.DateTimeField(auto_now=True)
+    activation_key  = models.CharField(max_length=120, blank=True, null=True)
+    activated       = models.BooleanField(default=False)
+    timestamp       = models.DateTimeField(auto_now_add=True)
+    updated         = models.DateTimeField(auto_now=True)
 
     objects     = ProfileManager()
     def __str__(self):
         return self.user.username
 
     def send_activation_email(self):
-        pass
+        if not self.activated:
+            self.activation_key = code_generator() #'SomeKey'
+            self.save()
+            path_p = reverse('activate', kwargs={'code':self.activation_key})
+            subject = 'Activate Account'
+            from_email = settings.DEFAULT_FROM_EMAIL
+            message = f'Activate your account here: {path_p}'
+            recipient_list = [self.user.email]
+            html_message = f'<p>Activate your account here: {path_p}</p>'
+            print(html_message)
+            # sent_mail = send_mail(subject, message, from_email, recipient_list, fail_silently=False, html_message=html_message)  #send_activation_email()
+            # return sent_mail
+
 
 
 
