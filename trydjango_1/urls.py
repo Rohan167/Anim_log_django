@@ -38,6 +38,5 @@ urlpatterns = [
     url(r'^profiles/', include('profiles.urls', namespace='profiles')),
     url(r'^animes/', include('animes.urls', namespace='animes')),
     url(r'^items/', include('episodes.urls', namespace='episodes')),
-    url(r'^about/$', TemplateView.as_view(template_name='about.html'), name='about'),
     url(r'^contact/$', TemplateView.as_view(template_name='contact.html'), name='contact'),
 ]

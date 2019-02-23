@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Item
+from django.contrib.auth.models import User
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, View
 from .forms import ItemForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,8 +10,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
+        user = User.objects.all()
         if not request.user.is_authenticated():
-            return render(request, 'home.html', {})
+            return render(request, 'home.html', {'user':user})
 
         user = request.user
         is_following_user_ids = [x.user.id for x in user.is_following.all()]
