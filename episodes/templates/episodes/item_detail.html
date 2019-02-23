@@ -6,12 +6,14 @@
 {% block content %}
 <h4>{{object.anime.name}}</h4>
 <form>
-  <a href='/items/{{object.pk}}/update/'>Update Episode</a>
+  <a class="btn btn-dark btn-md active" role="button" aria-pressed="true" href='/items/{{object.pk}}/update/'>Update Episode</a>
 </form>
+</br>
+<div class="card bg-light mb-3" style="max-width: 28rem;">
 <h5>{{object.name}}</h5>
 
 {% for item in object.get_contents %}
 {{ item }}
 {% endfor %}
-
+</div>
 {% endblock %}

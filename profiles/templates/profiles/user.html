@@ -17,7 +17,7 @@
 {% for anim in anime %}
 <div class='row'>
   <div class='col-sm-12'>
-      <div class='card card-default'>
+      <div  class="card bg-light mb-3" style="max-width: 28rem;">
 
           <h4>{{anim.title}}</h4>
           <p><a href='{{ request.path }}?q={{ anim.genre }}'>{{ anim.genre }}</a></p>

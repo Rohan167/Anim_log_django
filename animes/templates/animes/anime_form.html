@@ -8,10 +8,14 @@
 
 {% if form.errors %}
 {% endif %}
+
 <form method='POST'> {% csrf_token %}
+  <div class ="form-group">
   {{ form.as_p }}
-  <button type='submit'>Save</button>
+  <button class=" btn btn-primary" type='submit'>Save</button>
+  </div>
 </form>
+
 {% endblock %}
 
 

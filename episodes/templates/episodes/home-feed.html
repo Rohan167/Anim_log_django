@@ -5,7 +5,7 @@
 {% for item in object_list %}
 <div class='row'>
   <div class='col-sm-6 col-sm-offset-3'>
-      <div class='card card-default'>
+      <div class="card bg-light mb-3" style="max-width: 98rem;">
           <h5>User: <a href="/profiles/{{item.user.username}}" >{{item.user.username}} </a> </h5>
           <h6>{{item.anime.name}}</h6>
           <p>{{ item.anime.genre}} </p>

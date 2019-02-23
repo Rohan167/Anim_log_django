@@ -46,6 +46,7 @@ def anime_create_view(request):
     else:
         errors = form.errors
     context = {"form":form, "errors":errors}
+    context['title'] = 'Add Anime'
     return render(request, template_name, context)
 
 

@@ -6,12 +6,14 @@
 {% block content %}
 <h4>Anime List</h4>
 <form>
-  <a href='/animes/create/'>Add Anime</a>
+  <a class="btn btn-dark btn-md active" role="button" aria-pressed="true" href='/animes/create/'>Add Anime</a> <p>
 </form>
+<div class="card bg-light mb-3" style="max-width: 58rem;">
 <ul>
   {% for item in object_list %}
-    <li><b><a href="{{ item.get_absolute_url }}">{{item}}</a></b><br>
+    <li class="list-group-item"><b><a href="{{ item.get_absolute_url }}">{{item}}</a></b><br>
       {{ item.name }},  {{ item.genre }}  ,{{ item.review }}, {{ item.timestamp }} ,{{ item.updated }}</li>
   {% endfor %}
 </ul>
+</div>
 {% endblock %}

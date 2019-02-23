@@ -6,12 +6,15 @@
 {% block content %}
 <h4>Episode List</h4>
 <form>
-  <a href='/items/create/'>Add Episode</a>
+  <a  class="btn btn-dark btn-md active" role="button" aria-pressed="true"  href='/items/create/'>Add Episode</a>
 </form>
+</br>
+<div class="card bg-light mb-3" style="max-width: 58rem;">
 <ul>
   {% for item in object_list %}
-    <li><b><a href="{{ item.get_absolute_url }}">{{item.anime.name}}</a></b><br>
+    <li class="list-group-item"><b><a href="{{ item.get_absolute_url }}">{{item.anime.name}}</a></b><br>
     </li>
   {% endfor %}
 </ul>
+</div>
 {% endblock %}
