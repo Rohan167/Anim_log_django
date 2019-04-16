@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+<head>
+  {% include 'snippets/css.html' %}
+{% block head_title %}{{ title }} | {{block.super}}{% endblock head_title %}
+</head>
+{% block content %}
+{% if form.errors %}
+{% endif %}
+<form method='POST'> {% csrf_token %}
+  <div class ="form-group">
+    <h4> Are you sure you want to delete {{ object.title }} ? </h4>
+  <button class=" btn btn-danger" type='submit'>Submit</button>
+  </div>
+</form>
+{% endblock %}

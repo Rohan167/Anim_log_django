@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from .models import anime
 from .forms import anime_form, anime_model_form
@@ -53,8 +53,10 @@ def anime_create_view(request):
 
 class anime_list_view(LoginRequiredMixin,ListView):
     template_name = 'animes/anime.html'
+    ordering = ['-updated']
     def get_queryset(self):
         return anime.objects.filter(owner=self.request.user)
+
 
 
 
@@ -101,3 +103,14 @@ class anime_updateview_class(LoginRequiredMixin,UpdateView):
 
     def get_queryset(self):
         return anime.objects.filter (owner=self.request.user)
+
+
+class anime_delete_view(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
+    model = anime
+    template_name = 'anime_delete.html'
+    success_url = '/animes/'
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.owner:
+            return True
+        return False

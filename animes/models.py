@@ -25,13 +25,14 @@ class animeModelManager(models.Manager):
         return self.get_queryset().search(query)
 
 class anime(models.Model):
-    owner       = models.ForeignKey(User)  #class_instance.model_set.all() #TO SHOW THE ASSOCIATIONS
+    owner       = models.ForeignKey(User, on_delete=models.CASCADE)  #class_instance.model_set.all() #TO SHOW THE ASSOCIATIONS
     name        = models.CharField(max_length=120, validators=[validate_name])
     genre       = models.CharField(max_length=120, null=True,blank=True, validators=[validate_genres])
     review      = models.CharField(max_length=120, null=True,blank=False)
     timestamp   = models.DateTimeField(auto_now_add=True)
     updated     = models.DateTimeField(auto_now=True)
     slug        = models.SlugField(null=True,blank=True)
+    # author      = models.ForeignKey(User, on_delete=models.CASCADE)
     # my_date     = models.DateField(auto_now=False,auto_now_add=False,null=True)
 
     objects     = animeModelManager() #add Model.objects.all()

@@ -9,7 +9,7 @@ def validate_name(value):
 
 
 
-GENRES = ['Bad','Worse']
+GENRES = ['Bad','Worse','Dull']
 
 def validate_genres(value):
     val = value.capitalize()

@@ -7,9 +7,10 @@
 <h4>{{ object.title }}</h4>
 <form>
   <a class="btn btn-dark btn-md active" role="button" aria-pressed="true" href='/animes/{{object.slug}}/edit/'>Update</a>
+  <a class="btn btn-danger btn-md active" role="button" aria-pressed="true" href='/animes/{{object.slug}}/delete/'>Delete</a>
 </form>
 </br>
-<div class="card bg-light mb-3" style="max-width: 28rem;">
+<div class="card bg-light border-primary mb-3" style="max-width: 28rem;">
 <p>Genre: {{ object.genre }}</p>
 <p>Review: {{ object.review }}</p>
 <p>Time Created: {{ object.timestamp }}, <b>Updated:</b> {{ object.updated }}
