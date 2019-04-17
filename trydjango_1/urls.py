@@ -25,6 +25,8 @@ from animes.views import (
                         )
 from profiles.views import ProfileFollowToggle, RegisterView, activate_user_view
 from episodes.views import HomeView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -40,3 +42,7 @@ urlpatterns = [
     url(r'^items/', include('episodes.urls', namespace='episodes')),
     url(r'^contact/$', TemplateView.as_view(template_name='contact.html'), name='contact'),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

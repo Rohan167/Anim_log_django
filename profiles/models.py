@@ -22,8 +22,9 @@ class ProfileManager(models.Manager):
         return profile_p, is_following
 
 class Profile(models.Model):
-    user            = models.OneToOneField(User)
+    user            = models.OneToOneField(User, on_delete=models.CASCADE)
     followers       = models.ManyToManyField(User, related_name='is_following', blank=True)
+    image           = models.ImageField(default='default.jpg',upload_to='profile_pics')
     # following   = models.ManyToManyField(User, related_name='following', blank=True)
     activation_key  = models.CharField(max_length=120, blank=True, null=True)
     activated       = models.BooleanField(default=False)
