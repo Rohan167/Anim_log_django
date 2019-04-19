@@ -35,6 +35,11 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+    # 
+    # def get_absolute_url(self):
+    #     # return f"/animes/{self.slug}"
+    #     return reverse('profiles:userupdate', kwargs={'username': self.user.username})
+
     def send_activation_email(self):
         if not self.activated:
             self.activation_key = code_generator() #'SomeKey'

@@ -4,6 +4,16 @@
 {% block head_title %}{{user.username}} | {{block.super}}{% endblock head_title %}
 </head>
 {% block content %}
+
+<div class="content-section">
+  <div class="media">
+    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" style="width:200px; height:200px;">
+      <div class="media-body">
+        <p class="text-secondary">{{ user.email }}</p>
+      </div>
+    </div>
+</div>
+
 <h2 class="account-heading">{{ user.username }}</h2>
 <p> {% include 'profiles/snippet/follow_form.html' with username=user.username is_following=is_following %} </p>
 

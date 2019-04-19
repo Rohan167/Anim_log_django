@@ -1,5 +1,5 @@
 from django import forms
-
+from .models import Profile
 from django.contrib.auth import  get_user_model
 
 User = get_user_model()
@@ -42,3 +42,15 @@ class RegisterForm(forms.ModelForm):
             print('Activation')
             user.profile.send_activation_email()
         return user
+
+
+class UserUpdate(forms.ModelForm):
+        class Meta:
+            model = User
+            fields = ('username','email',)
+
+
+class ProfileUpdate(forms.ModelForm):
+        class Meta:
+            model = Profile
+            fields = ('image',)

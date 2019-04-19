@@ -25,16 +25,16 @@
 
               <div class="topnav-right">
               {% if request.user.is_authenticated %}
-
                 <li class="nav-item dropdown">
                     <a  class="nav-link" class="nav-link dropdown-toggle navbar-brand" style="font-weight:bold; font-size:16px;" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{user.username}}
-                  </a>
-                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                  <a  class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                </div>
+                      <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" style="width:60px; height:60px;">
+                    </a>
+                    <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                      <a  class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                      <a  class="nav-link" href="/profiles/{{request.user.username}}/profile_update/">Update Profile</a>
+                    </div>
                 </li>
-             </div>
+              </div>
 
               {% endif %}
               {% if not request.user.is_authenticated %}
@@ -46,7 +46,7 @@
                 <a  class="nav-link" href="{% url 'login' %}">Log In</a>
                 <a  class="nav-link" href="{% url 'register' %}">Register</a>
               </div>
-            </li>
+              </li>
             {% endif %}
           </ul>
 

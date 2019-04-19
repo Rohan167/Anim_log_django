@@ -1,12 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, View, CreateView
 from django.http import Http404
 from django.contrib.auth import get_user_model
 from animes.models import anime
 from episodes.models import Item
 from .models import Profile
-from .forms import RegisterForm
+from .forms import RegisterForm, ProfileUpdate, UserUpdate
+from django.contrib import messages
 # Create your views here.
 
 User    = get_user_model()
@@ -80,3 +82,22 @@ class ProfileDetail(DetailView):
         if item_exists and qs.exists():
             context['anime'] = qs
         return context
+
+def profile_update(request,username):
+    print(username)
+    if request.method == "POST":
+        p_form = ProfileUpdate(request.POST, request.FILES, instance=request.user.profile)
+        u_form = UserUpdate(request.POST, instance=request.user)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, "Your account has been updated")
+            return redirect('/animes/')
+    else:
+        p_form = ProfileUpdate(instance=request.user.profile)
+        u_form = UserUpdate(instance=request.user)
+    context = {
+        'p_form':p_form,
+        'u_form':u_form
+    }
+    return render(request,'profiles/u_update.html', context)
